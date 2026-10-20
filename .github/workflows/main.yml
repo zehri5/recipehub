@@ -20,11 +20,17 @@ jobs:
         with:
           channel: 'stable'
 
-      - run: flutter pub get
+      - name: Create Android Structure
+        run: flutter create --platforms=android .
 
-      - run: flutter build apk --release
+      - name: Install Dependencies
+        run: flutter pub get
 
-      - uses: actions/upload-artifact@v4
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: RecipeHub-APK
           path: build/app/outputs/flutter-apk/app-release.apk
